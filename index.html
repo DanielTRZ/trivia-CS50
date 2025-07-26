@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trivia!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+
+    <script>
+        // zmienna żeby sprawdzać czy już wybrano odpowiedź
+        // variable to track if answer was already selected
+        let juzWybrano = false;
+
+        // funkcja do sprawdzania poprawności przycisków
+        // function for checking button answers
+        function sprawdzPrzycisk(przycisk, poprawna) {
+            if (juzWybrano) {
+                return;
+            }
+
+            juzWybrano = true;
+
+            let komunikat = document.getElementById("komunikat-wybor");
+
+            if (poprawna) {
+                przycisk.style.backgroundColor = "green";
+                komunikat.textContent = "Poprawna odpowiedź! / Correct answer!";
+                komunikat.className = "feedback correct";
+            } else {
+                przycisk.style.backgroundColor = "red";
+                komunikat.textContent = "Zła odpowiedź! / Wrong answer!";
+                komunikat.className = "feedback incorrect";
+            }
+        }
+
+        // funkcja do sprawdzania pola tekstowego
+        // function to check text field
+        function sprawdzTekst() {
+            let odp = document.getElementById("odp-text").value.trim().toLowerCase();
+            let komunikat = document.getElementById("komunikat-tekst");
+
+            if (odp === "paris") {
+                komunikat.textContent = "Dobrze! / Correct!";
+                komunikat.className = "feedback correct";
+                document.getElementById("odp-text").classList.add("correct");
+                document.getElementById("odp-text").classList.remove("incorrect");
+            } else {
+                komunikat.textContent = "Źle! / Wrong!";
+                komunikat.className = "feedback incorrect";
+                document.getElementById("odp-text").classList.add("incorrect");
+                document.getElementById("odp-text").classList.remove("correct");
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="header">
+        <h1>Trivia! / Ciekawostki!</h1>
+    </div>
+
+    <div class="container">
+        <div class="section">
+            <h2>Part 1: Multiple Choice / Część 1: Wybór odpowiedzi</h2>
+            <hr>
+            <h3>Which planet is known as the Red Planet? / Która planeta jest znana jako Czerwona Planeta?</h3>
+            <div class="buttons">
+                <button onclick="sprawdzPrzycisk(this, false)">Earth / Ziemia</button>
+                <button onclick="sprawdzPrzycisk(this, true)">Mars</button>
+                <button onclick="sprawdzPrzycisk(this, false)">Venus / Wenus</button>
+            </div>
+            <p id="komunikat-wybor" class="feedback"></p>
+        </div>
+
+        <div class="section">
+            <h2>Part 2: Free Response / Część 2: Odpowiedź tekstowa</h2>
+            <hr>
+            <h3>What is the capital of France? / Jaka jest stolica Francji?</h3>
+            <input type="text" id="odp-text">
+            <button onclick="sprawdzTekst()">Sprawdź / Submit</button>
+            <p id="komunikat-tekst" class="feedback"></p>
+        </div>
+    </div>
+</body>
+</html>
